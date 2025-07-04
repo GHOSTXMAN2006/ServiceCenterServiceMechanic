@@ -18,22 +18,32 @@ public class CleanServices {
         return cleanRepository.findAll();
     }
 
-    public Clean createVehicleService(Clean clean){
-
+    public Clean createVehicleService(Clean clean) {
+        if (clean.getImageUrl() == null || clean.getImageUrl().isEmpty()) {
+            clean.setImageUrl("/uploads/NoImageAvailable.jpg");  // default image if none provided
+        }
         return cleanRepository.save(clean);
     }
 
-    public Clean updateVehicleService(Clean vehicleservice){
-        return cleanRepository.save(vehicleservice);
+    public Clean updateVehicleService(Clean cleanService) {
+        if (cleanService.getImageUrl() == null || cleanService.getImageUrl().isEmpty()) {
+            cleanService.setImageUrl("/uploads/NoImageAvailable.jpg");  // default image fallback
+        }
+        return cleanRepository.save(cleanService);
     }
 
-    public Clean deleteVehicleServiceById(int id){
+    public Clean deleteVehicleServiceById(int id) {
         Optional<Clean> vs = cleanRepository.findById(id);
-        if (vs.isPresent()){
+        if (vs.isPresent()) {
             cleanRepository.deleteById(id);
             return vs.get();
         } else {
             return null;
         }
     }
+
+    public List<Clean> searchServices(String keyword) {
+        return cleanRepository.search(keyword);
+    }
+
 }

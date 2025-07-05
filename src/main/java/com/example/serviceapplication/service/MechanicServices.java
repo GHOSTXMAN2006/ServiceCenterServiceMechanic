@@ -1,10 +1,7 @@
 package com.example.serviceapplication.service;
 
-import com.example.serviceapplication.data.Center;
-import com.example.serviceapplication.data.CenterRepository;
 import com.example.serviceapplication.data.Mechanic;
 import com.example.serviceapplication.data.MechanicRepository;
-import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,26 +18,25 @@ public class MechanicServices {
         return mechanicRepository.findAll();
     }
 
-    public Mechanic getMechanicById(int id){
+    public Mechanic getMechanicById(int id) {
         Optional<Mechanic> mec = mechanicRepository.findById(id);
-        if (mec.isPresent()){
-
+        if (mec.isPresent()) {
+            return mec.get();
         }
-        return mec.get();
+        return null;
     }
 
-    public Mechanic createMechanic(Mechanic mechanic){
-
+    public Mechanic createMechanic(Mechanic mechanic) {
         return mechanicRepository.save(mechanic);
     }
 
-    public Mechanic updateMechanic(Mechanic mechanic){
+    public Mechanic updateMechanic(Mechanic mechanic) {
         return mechanicRepository.save(mechanic);
     }
 
-    public Mechanic deleteMechanicById(int id){
+    public Mechanic deleteMechanicById(int id) {
         Optional<Mechanic> mec = mechanicRepository.findById(id);
-        if (mec.isPresent()){
+        if (mec.isPresent()) {
             mechanicRepository.deleteById(id);
             return mec.get();
         } else {
@@ -51,4 +47,10 @@ public class MechanicServices {
     public List<Mechanic> getAvailableMechanics() {
         return mechanicRepository.findAvailableMechanics();
     }
+
+    public List<Mechanic> searchMechanics(String q) {
+        String query = q.toLowerCase();
+        return mechanicRepository.findByNameOrSkillset(query, query);
+    }
+
 }

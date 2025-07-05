@@ -13,7 +13,13 @@ public interface MechanicRepository extends JpaRepository<Mechanic, Integer> {
     @Query("SELECT m FROM Mechanic m WHERE m.availability = 1")
     List<Mechanic> findAvailableMechanics();
 
-    // Short, simple search by name or skillset (case-insensitive)
-    @Query("SELECT m FROM Mechanic m WHERE LOWER(m.name) LIKE %:q% OR LOWER(m.skillset) LIKE %:q%")
-    List<Mechanic> searchByNameOrSkillset(@Param("q") String query);
+    @Query("SELECT m FROM Mechanic m WHERE LOWER(m.name) LIKE %:q%")
+    List<Mechanic> searchByName(@Param("q") String query);
+
+    @Query("SELECT m FROM Mechanic m WHERE LOWER(m.skillset) LIKE %:q%")
+    List<Mechanic> searchBySkillset(@Param("q") String query);
+
+    List<Mechanic> findByAvailabilityFalse();
+
 }
+

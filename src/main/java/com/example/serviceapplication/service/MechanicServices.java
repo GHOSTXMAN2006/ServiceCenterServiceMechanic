@@ -48,9 +48,17 @@ public class MechanicServices {
         return mechanicRepository.findAvailableMechanics();
     }
 
-    public List<Mechanic> searchMechanics(String q) {
-        String query = q.toLowerCase();
-        return mechanicRepository.searchByNameOrSkillset(query);
+    public List<Mechanic> getUnavailableMechanics() {
+        // Return mechanics where availability is false
+        return mechanicRepository.findByAvailabilityFalse();
     }
+    public List<Mechanic> searchByName(String q) {
+        return mechanicRepository.searchByName(q.toLowerCase());
+    }
+
+    public List<Mechanic> searchBySkillset(String q) {
+        return mechanicRepository.searchBySkillset(q.toLowerCase());
+    }
+
 
 }

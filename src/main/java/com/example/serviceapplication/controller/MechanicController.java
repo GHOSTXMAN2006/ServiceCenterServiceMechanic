@@ -79,8 +79,25 @@ public class MechanicController {
 
     // NEW: Search mechanics by query (name or skillset)
     @GetMapping("/mechanics/search")
-    public List<Mechanic> searchMechanics(@RequestParam("query") String q) {
-        return mechanicServices.searchMechanics(q);
+    public List<Mechanic> searchMechanics(
+            @RequestParam("query") String q,
+            @RequestParam("type") String type) {  // type required here!
+
+        if ("name".equalsIgnoreCase(type)) {
+            return mechanicServices.searchByName(q);
+        } else if ("skillset".equalsIgnoreCase(type)) {
+            return mechanicServices.searchBySkillset(q);
+        } else {
+            return List.of(); // empty if wrong type
+        }
     }
+
+
+
+    @GetMapping("/mechanics/unavailable")
+    public List<Mechanic> getUnavailableMechanics() {
+        return mechanicServices.getUnavailableMechanics();
+    }
+
 
 }

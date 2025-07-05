@@ -50,7 +50,7 @@ public class MechanicServices {
 
     public List<Mechanic> searchMechanics(String q) {
         String query = q.toLowerCase();
-        return mechanicRepository.findByNameOrSkillset(query, query);
+        return mechanicRepository.searchByNameOrSkillset(query);
     }
 
 }

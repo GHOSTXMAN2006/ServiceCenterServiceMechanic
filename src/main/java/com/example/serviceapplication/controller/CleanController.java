@@ -18,31 +18,31 @@ public class CleanController {
     @Autowired
     private CleanServices cleanServices;
 
-    // 🌍 Get all services
+    //  Get all services
     @GetMapping("/vehicleservices")
     public List<Clean> getAllVehicleServices() {
         return cleanServices.getAllVehicleServices();
     }
 
-    // 🆕 Create service
+    //  Create service
     @PostMapping("/vehicleservices")
     public Clean createVehicleService(@RequestBody Clean service) {
         return cleanServices.createVehicleService(service);
     }
 
-    // ✏️ Update service
+    // Update service
     @PutMapping("/vehicleservices")
     public Clean updateVehicleService(@RequestBody Clean service) {
         return cleanServices.updateVehicleService(service);
     }
 
-    // ❌ Delete service
+    //  Delete service
     @DeleteMapping("/vehicleservices/{id}")
     public void deleteVehicleService(@PathVariable int id) {
         cleanServices.deleteVehicleServiceById(id);
     }
 
-    // 📤 Upload image
+    //  Upload image
     @PostMapping("/vehicleservices/upload")
     public String uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
         String folder = "uploads/";
@@ -54,7 +54,7 @@ public class CleanController {
         return "/uploads/" + fileName;
     }
 
-    // 🔎 Search services by keyword
+    //  Search services by keyword
     @GetMapping("/vehicleservices/search")
     public List<Clean> searchServices(@RequestParam String keyword) {
         return cleanServices.searchServices(keyword);
